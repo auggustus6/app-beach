@@ -17,11 +17,12 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import LoginView from './src/views/LoginView';
+import {THEME} from './src/theme/theme';
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <StatusBar translucent backgroundColor={"transparent"}/>
+    <NativeBaseProvider theme={THEME}>
+      <StatusBar translucent backgroundColor={'transparent'} />
       <LoginView />
     </NativeBaseProvider>
   );
