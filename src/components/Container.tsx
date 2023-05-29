@@ -1,4 +1,4 @@
-import {Box, VStack} from 'native-base';
+import {Box, ScrollView, VStack} from 'native-base';
 import {
   ResponsiveValue,
   SpaceType,
@@ -8,9 +8,21 @@ import {ViewStyle} from 'react-native';
 
 interface ContainerProps extends React.ComponentProps<typeof VStack> {
   children: React.ReactNode;
+  scroll?: boolean;
 }
 
-export default function Container({children, ...props}: ContainerProps) {
+export default function Container({
+  scroll = false,
+  children,
+  ...props
+}: ContainerProps) {
+  if (scroll) {
+    return (
+      <ScrollView px={6} {...(props as any)}>
+        {children}
+      </ScrollView>
+    );
+  }
   return (
     <VStack px={6} {...props}>
       {children}

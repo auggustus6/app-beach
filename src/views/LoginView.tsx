@@ -14,7 +14,11 @@ import React from 'react';
 import Logo from '../components/Logo';
 import Container from '../components/Container';
 import DefaultInput from '../components/DefaultInput';
-import DefaultButton from '../components/DefaultButton';
+import DefaultButton from '../components/Buttons/DefaultButton';
+import Facebook from '../components/Icons/Facebook';
+import OAuthButton from '../components/Buttons/OAuthButton';
+import Google from '../components/Icons/Google';
+import Apple from '../components/Icons/Apple';
 
 export default function LoginView() {
   return (
@@ -70,21 +74,13 @@ export default function LoginView() {
           </Box>
 
           <SimpleGrid spacingX={4} columns={3}>
-            {new Array(3).fill(0).map((_, index) => (
-              <Box key={index} style={{width: 100}}>
-                <Button
-                  h={16}
-                  rounded={'2xl'}
-                  bgColor={'transparent'}
-                  borderColor={'theme_gray'}
-                  borderWidth={1}
-                />
-              </Box>
-            ))}
+            <OAuthButton icon={<Facebook size={'10'} />} />
+            <OAuthButton icon={<Google size={'12'} />} />
+            <OAuthButton icon={<Apple size={'12'} />} />
           </SimpleGrid>
 
-          <Text textAlign={'center'} mt={4}>
-            Nao possui uma conta?{' '}
+          <Box flexDir={'row'} alignSelf={'center'} mt={4}>
+            <Text>Nao possui uma conta? </Text>
             <Link
               _text={{
                 fontSize: 'sm',
@@ -92,7 +88,7 @@ export default function LoginView() {
               }}>
               Registre-se
             </Link>
-          </Text>
+          </Box>
         </Container>
       </Box>
     </Box>
