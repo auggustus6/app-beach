@@ -19,8 +19,14 @@ import Facebook from '../components/Icons/Facebook';
 import OAuthButton from '../components/Buttons/OAuthButton';
 import Google from '../components/Icons/Google';
 import Apple from '../components/Icons/Apple';
+import {useNavigation} from '@react-navigation/native';
 
 export default function LoginView() {
+  // TODO - TYPE ROUTES
+  const navigation: any = useNavigation();
+
+  console.log('teste');
+
   return (
     <Box flex={1} height={'full'} bgColor={'theme_primary'}>
       <Center flex={1}>
@@ -38,7 +44,9 @@ export default function LoginView() {
           <Text color="theme_textLight">Preencha as informações abaixo</Text>
           <DefaultInput placeholder="Email" />
           <DefaultInput placeholder="Senha" />
-          <DefaultButton>Entrar</DefaultButton>
+          <DefaultButton onPress={() => navigation.navigate('home_drawer')}>
+            Entrar
+          </DefaultButton>
           <HStack justifyContent={'space-between'}>
             <Checkbox
               value="false"

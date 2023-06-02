@@ -3,13 +3,18 @@ import HomeView from '../views/HomeView';
 import {Box} from 'native-base';
 import CustomDrawerHeader from '../components/CustomDrawerHeader';
 import CourtView from '../views/CourtView';
+import ProfileView from '../views/ProfileView';
+import EventView from '../views/EventView';
+import {useEffect, useLayoutEffect, useRef} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import LoginView from '../views/LoginView';
 
 const Drawer = createDrawerNavigator();
 
 export function PrivateRoutes() {
   return (
     <Drawer.Navigator
-      initialRouteName="court_drawer"
+      initialRouteName="home_drawer"
       screenOptions={{
         // drawerLabel: () => null,
         headerTitle: () => <CustomDrawerHeader />,
@@ -47,7 +52,38 @@ export function PrivateRoutes() {
         }}
         component={CourtView}
       />
-      {/* <Drawer.Screen name="Article" component={Article} /> */}
+      <Drawer.Screen
+        name="profile_drawer"
+        options={{
+          drawerItemStyle: {display: 'none'},
+        }}
+        component={ProfileView}
+      />
+      <Drawer.Screen
+        name="event_drawer"
+        options={{
+          title: 'Eventos',
+        }}
+        component={EventView}
+      />
+
+      <Drawer.Screen
+        name="login_drawer"
+        options={{
+          drawerItemStyle: {display: 'none'},
+          headerShown: false,
+        }}
+        component={LoginView}
+      />
+
+      <Drawer.Screen
+        name="exit_drawer"
+        options={{
+          title: 'Sair',
+          headerShown: false,
+        }}
+        component={LoginView}
+      />
     </Drawer.Navigator>
   );
 }

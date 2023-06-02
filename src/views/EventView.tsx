@@ -5,27 +5,31 @@ import {
   HStack,
   Heading,
   Image,
+  Modal,
   Select,
   Spacer,
   Text,
   VStack,
 } from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
 import Container from '../components/Container';
 import BreadCrumbs from '../components/BreadCrumbs';
 import Star from '../components/Icons/Star';
 import {View} from 'react-native';
 import DefaultButton from '../components/Buttons/DefaultButton';
 import Heart from '../components/Icons/Heart';
+import DefaultInput from '../components/DefaultInput';
 
-export default function CourtView() {
+export default function EventView() {
+  const [showModal, setShowModal] = useState(false);
+
   const placeholder = require('../../assets/images/placeholder.png');
   const placeholderMap = require('../../assets/images/map-placeholder.png');
-  const placeholderChart = require('../../assets/images/chart.png');
+
   return (
     <Container scroll>
       <Spacer my={4} />
-      <BreadCrumbs actualPath={'Quadra'} />
+      <BreadCrumbs actualPath={'Evento'} />
       <Spacer my={2} />
       <Image
         source={placeholder}
@@ -36,37 +40,9 @@ export default function CourtView() {
         my={1}
         mb={4}
       />
-      <HStack justifyContent={'space-between'} space={2}>
-        <Button
-          flex={1}
-          h={12}
-          bg={'transparent'}
-          variant={'outline'}
-          _pressed={{bg: 'transparent'}}>
-          <Text>R$ 32/hora</Text>
-        </Button>
-        <Button
-          flex={1}
-          h={12}
-          bg={'transparent'}
-          variant={'outline'}
-          _pressed={{bg: 'transparent'}}>
-          <Text>3.4Km</Text>
-        </Button>
-        <Button
-          flex={1}
-          h={12}
-          bg={'transparent'}
-          variant={'outline'}
-          _pressed={{bg: 'transparent'}}>
-          <HStack alignItems={'center'} space={1}>
-            <Star size={'md'} />
-            <Text>4,90</Text>
-          </HStack>
-        </Button>
-      </HStack>
+
       <Heading size={'lg'} fontWeight={500} mt={6}>
-        Quadra 01
+        Evento
       </Heading>
       <Box mt={1} />
       <Text color="#999999">São José do Rio Preto - Seg à Sab</Text>
@@ -80,6 +56,8 @@ export default function CourtView() {
         de 1,70 metros para homens e 1,55 metros para mulheres.
       </Text>
       <Box mt={6} />
+
+      {/* TODO - CREATE COMPONENTE TO SPECIFICATIONS */}
       <Heading fontSize={16} fontWeight={400}>
         Especificações
       </Heading>
@@ -103,6 +81,8 @@ export default function CourtView() {
         </HStack>
       </VStack>
       <Box mt={6} />
+
+      {/* TODO - create map component */}
       <Heading fontSize={16} fontWeight={400}>
         Localização
       </Heading>
@@ -139,34 +119,50 @@ export default function CourtView() {
           <Select.Item value={'Sex'} label="Sex" />
         </Select>
       </HStack>
-      <Image
-        source={placeholderChart}
-        alt="Quadra"
-        width={'full'}
-        height={'48'}
-        borderRadius={'lg'}
-        my={1}
-        mb={4}
-      />
 
       {/* TODO - Make this component be like as figma */}
       {/* For any reason, shadow is not working, not even elevation, i'll see this later */}
       <VStack width={'full'} mt={12} space={4} shadow={10}>
-        <DefaultButton>Pagar - R$ 32</DefaultButton>
-        <DefaultButton backgroundColor={'theme_primary'}>
-          Se tornar sócio - R$120/mês
-        </DefaultButton>
-        <DefaultButton
-          flexDir={'row'}
-          variant={'outline'}
-          backgroundColor={'transparent'}
-          borderColor={'#000'}
-          borderWidth={1.5}>
-          <Box flexDir={'row'} alignItems={'center'}>
-            <Heart /> Favoritar
-          </Box>
+        <DefaultButton onPress={() => setShowModal(true)}>
+          Quero participar - R$ 32
         </DefaultButton>
       </VStack>
+      {/* TODO - Move modal to a separated component */}
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.CloseButton />
+          <Modal.Header
+            style={{
+              borderBottomWidth: 0,
+              shadowOffset: {height: 0, width: 0},
+              shadowOpacity: 0,
+              elevation: 0,
+            }}>
+            Informações
+          </Modal.Header>
+          <Modal.Body>
+            <VStack space={4}>
+              <DefaultInput
+                placeholder="Nome"
+                label="Nome"
+                value="Joana laranjinha"
+              />
+              <DefaultInput
+                placeholder="Categoria:"
+                label="Categoria:"
+                value="Iniciante"
+              />
+              <DefaultInput
+                placeholder="Telefone (Whatsapp)"
+                label="Telefone (Whatsapp)"
+                value="(00) 0 0000-0000"
+              />
+              <Box />
+              <DefaultButton>Confirmar inscrição</DefaultButton>
+            </VStack>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
       <Box mt={8} />
     </Container>
   );
